@@ -13,6 +13,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Home from './HomeComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
+import ProfileReady from './ProfileReadyComponent';
+import CreateChar from './CreateCharFormComponent';
+import ChooseFeatures from './ChooseFeaturesFormComponent';
+
 
 
 
@@ -67,11 +71,31 @@ const ContactNavigator = createStackNavigator(
   }
 );
 
+const GameNavigator = createStackNavigator(
+  {
+    ChooseFeatures: { screen: ChooseFeatures },
+    CreateChar: { screen: CreateChar },
+    ProfileReady: { screen: ProfileReady }
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'purple'
+      },
+      headerTintColor: 'white',
+      headerTitleStyle: {
+        color: 'white'
+      }
+    }
+  }
+);
+
 const MainNavigator = createDrawerNavigator(
   {
     Home: { screen: HomeNavigator },
     About: { screen: AboutNavigator },
-    Contact: { screen: ContactNavigator }
+    Contact: { screen: ContactNavigator },
+    Game: { screen: GameNavigator }
   },
   {
     drawerBackgroundColor: '#CEC8FF'
