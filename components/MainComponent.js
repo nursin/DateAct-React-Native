@@ -6,7 +6,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import SafeAreaView from 'react-native-safe-area-view';
-
+import AppLoading from 'expo-app-loading';
+import { useFonts, GoblinOne_400Regular } from '@expo-google-fonts/goblin-one';
 import { Header, Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -24,13 +25,18 @@ import ChooseFeatures from './ChooseFeaturesFormComponent';
 
 const HomeNavigator = createStackNavigator(
   {
-    Home: { 
+    Home: {
       screen: Home,
       navigationOptions: ({ navigation }) => ({
+        headerRight: <Icon
+          name='home'
+          type='font-awesome'
+          iconStyle={styles.stackIconRight}
+        />,
         headerLeft: <Icon
           name='list'
           type='font-awesome'
-          iconStyle={styles.stackIcon}
+          iconStyle={styles.stackIconLeft}
           onPress={() => navigation.toggleDrawer()}
         />
       })
@@ -54,17 +60,23 @@ const HomeNavigator = createStackNavigator(
 
 const AboutNavigator = createStackNavigator(
   {
-    About: { 
+    About: {
       screen: About,
       navigationOptions: ({ navigation }) => ({
+        headerRight: <Icon
+          name='info-circle'
+          type='font-awesome'
+          iconStyle={styles.stackIconRight}
+          onPress={() => navigation.toggleDrawer()}
+        />,
         headerLeft: <Icon
           name='list'
           type='font-awesome'
-          iconStyle={styles.stackIcon}
+          iconStyle={styles.stackIconLeft}
           onPress={() => navigation.toggleDrawer()}
         />
       })
-     }
+    }
   },
   {
     defaultNavigationOptions: {
@@ -81,17 +93,23 @@ const AboutNavigator = createStackNavigator(
 
 const ContactNavigator = createStackNavigator(
   {
-    Contact: { 
+    Contact: {
       screen: Contact,
       navigationOptions: ({ navigation }) => ({
+        headerRight: <Icon
+          name='address-card'
+          type='font-awesome'
+          iconStyle={styles.stackIconRight}
+          onPress={() => navigation.toggleDrawer()}
+        />,
         headerLeft: <Icon
           name='list'
           type='font-awesome'
-          iconStyle={styles.stackIcon}
+          iconStyle={styles.stackIconLeft}
           onPress={() => navigation.toggleDrawer()}
         />
       })
-     }
+    }
   },
   {
     defaultNavigationOptions: {
@@ -110,10 +128,15 @@ const CustomDrawerContentComponent = props => (
   <ScrollView>
     <SafeAreaView
       style={styles.container}
-      forceInset={{ top: 'always', horizontal: 'never'}}
+      forceInset={{ top: 'always', horizontal: 'never' }}
     >
       <View style={styles.drawerHeader}>
-        <View style={{flex: 1}}>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={['#dd37b9', '#8a30c5', '#2904ff']}
+          style={styles.background}
+        />
+        <View style={{ flex: 1 }}>
           <Icon
             name='transgender-alt'
             type='font-awesome'
@@ -122,7 +145,7 @@ const CustomDrawerContentComponent = props => (
             style={styles.drawerImage}
           />
         </View>
-        <View style={{flex: 2}}>
+        <View style={{ flex: 2 }}>
           <Text style={styles.drawerHeaderText}>Date Act</Text>
         </View>
       </View>
@@ -133,10 +156,10 @@ const CustomDrawerContentComponent = props => (
 
 const MainNavigator = createDrawerNavigator(
   {
-    Home: { 
+    Home: {
       screen: HomeNavigator,
       navigationOptions: {
-        drawerIcon: ({tintColor}) => (
+        drawerIcon: ({ tintColor }) => (
           <Icon
             name='home'
             type='font-awesome'
@@ -145,11 +168,11 @@ const MainNavigator = createDrawerNavigator(
           />
         )
       }
-     },
-    About: { 
+    },
+    About: {
       screen: AboutNavigator,
       navigationOptions: {
-        drawerIcon: ({tintColor}) => (
+        drawerIcon: ({ tintColor }) => (
           <Icon
             name='info-circle'
             type='font-awesome'
@@ -158,11 +181,11 @@ const MainNavigator = createDrawerNavigator(
           />
         )
       }
-     },
-    Contact: { 
+    },
+    Contact: {
       screen: ContactNavigator,
       navigationOptions: {
-        drawerIcon: ({tintColor}) => (
+        drawerIcon: ({ tintColor }) => (
           <Icon
             name='address-card'
             type='font-awesome'
@@ -171,7 +194,7 @@ const MainNavigator = createDrawerNavigator(
           />
         )
       }
-     },
+    },
   },
   {
     drawerBackgroundColor: '#CEC8FF',
@@ -181,19 +204,25 @@ const MainNavigator = createDrawerNavigator(
 
 const AppNavigator = createAppContainer(MainNavigator);
 
-class Main extends Component {
+function Main() {
+  let [fontsLoaded, error] = useFonts({
+    GoblinOne_400Regular,
+  });
 
-  render() {
-    return(
-      <View
-        style={{
-          flex: 1,
-          paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
-        }}>
-        <AppNavigator />
-      </View>
-    );
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
+      }}>
+      <AppNavigator />
+    </View>
+  );
+
 }
 
 const styles = StyleSheet.create({
@@ -211,15 +240,30 @@ const styles = StyleSheet.create({
   drawerHeaderText: {
     color: '#fff',
     fontSize: 34,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'left'
   },
   drawerImage: {
     margin: 10
   },
-  stackIcon: {
+  stackIconRight: {
+    marginRight: 10,
+    color: '#fff',
+    fontSize: 30
+  },
+  stackIconLeft: {
     marginLeft: 10,
     color: '#fff',
     fontSize: 30
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: -180,
+    height: 350,
+    width: 300,
+    transform: [{ rotate: "-90deg" }]
   }
 })
 
