@@ -79,7 +79,13 @@ class ChooseFeatures extends Component {
               buttonStyle={{
                 backgroundColor: '#2904ff'
               }}
-              onPress={() => navigate('ProfileReady')}
+              onPress={() => {
+                if (this.state.type === 'createYourOwn') {
+                  navigate('CreateChar')
+                } else {
+                  navigate('ProfileReady')
+                }
+              }}
             />
           </View>
         </View>
