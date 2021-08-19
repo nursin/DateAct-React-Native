@@ -3,13 +3,17 @@ import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { Card, Header, Button } from 'react-native-elements';
 
 class ProfileReady extends Component {
-
+  constructor(props) {
+    super(props);
+  }
+  
   static navigationOptions = {
     title: 'Profile ready'
   }
 
   render() {
     const { navigate } = this.props.navigation;
+    
     return (
       <ScrollView>
         <Card
@@ -26,6 +30,7 @@ class ProfileReady extends Component {
           <Text style={styles.profileLabelText}>Name:</Text>
           <Text style={styles.profileLabelText}>Age:</Text>
           <Text style={styles.profileLabelText}>Horoscope:</Text>
+          <Text style={styles.profileLabelText}>Type:</Text>
           <Text style={styles.profileLabelText}>Bio:</Text>
           <Text style={styles.profileLabelText}>Adjectives:</Text>
           <Text style={styles.profileLabelText}>Quirky Fact:</Text>

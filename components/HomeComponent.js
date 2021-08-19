@@ -48,7 +48,6 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
  pageHeader: {
-   fontFamily: "GoblinOne-Regular",
    marginTop: 10, 
    textAlign: 'center', 
    color: 'white', 

@@ -34,7 +34,7 @@ class CreateChar extends Component {
               placeholder='Name'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={name => this.setState({ name: name })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -43,7 +43,7 @@ class CreateChar extends Component {
               placeholder='Age'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={age => this.setState({ age: age })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -52,7 +52,7 @@ class CreateChar extends Component {
               placeholder='Horoscope'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={horoscope => this.setState({ horoscope: horoscope })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -61,7 +61,7 @@ class CreateChar extends Component {
               placeholder='Bio'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={bio => this.setState({ bio: bio })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -70,7 +70,7 @@ class CreateChar extends Component {
               placeholder='Adjectives'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={adjectives => this.setState({ adjectives: adjectives })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -79,7 +79,7 @@ class CreateChar extends Component {
               placeholder='Quirky Fact'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={quirkyFact => this.setState({ quirkyFact: quirkyFact })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -88,7 +88,7 @@ class CreateChar extends Component {
               placeholder='Profession'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={author => this.setState({ author: author })}
+              onChangeText={profession => this.setState({ profession: profession })}
             ></Input>
           </View>
           <View style={styles.buttonContainer}>
@@ -107,7 +107,7 @@ class CreateChar extends Component {
                 backgroundColor: '#2904ff'
               }}
               onPress={() => {
-                navigate('ProfileReady')
+                navigate('ProfileReady', {createCharData: this.state})
               }}
             />
           </View>
