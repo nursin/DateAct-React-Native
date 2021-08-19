@@ -33,7 +33,8 @@ export function generateProfile(charType, charData, formValues, attributeToShow,
   } else if (charType === 'notFamous'){
     // run notfamous profile random selection profile
     if (attributeToShow === 'name'){
-      return generateName(formValues.charGender, charData.maleNames, charData.femaleNames, charData.unisexNames, charData.lastNames)
+      console.log('charGender:', formValues.formValues.charGender)
+      return generateName(formValues.formValues.charGender, charData.maleNames, charData.femaleNames, charData.unisexNames, charData.lastNames)
     } else if (attributeToShow === 'age'){
       return generateAge(formValues.formValues.charAge)
     } else if (attributeToShow === 'horoscope'){
@@ -95,7 +96,7 @@ function generateName(gender, maleNames, femaleNames, unisexNames, lastNames) {
     return maleNames[Math.floor(Math.random()*maleNames.length)].name + ' ' + lastNames[Math.floor(Math.random()*lastNames.length)].name;
   } else if (gender === 'female') {
     return femaleNames[Math.floor(Math.random()*femaleNames.length)].name + ' ' + lastNames[Math.floor(Math.random()*lastNames.length)].name;
-  } else if (gender === 'unisex') {
+  } else if (gender === 'androgen' || gender === 'neutral') {
     return unisexNames[Math.floor(Math.random()*unisexNames.length)].name + ' ' + lastNames[Math.floor(Math.random()*lastNames.length)].name;
   } else {
     return maleNames[Math.floor(Math.random()*maleNames.length)].name + ' ' + lastNames[Math.floor(Math.random()*lastNames.length)].name;

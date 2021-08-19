@@ -3,19 +3,42 @@ import { ImageBackgroundComponent } from 'react-native';
 import { ImageBackground } from 'react-native';
 import { Text, View, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Card, Header, Icon, Button } from 'react-native-elements';
+import { selectedChooseFormValues } from '../redux/ActionCreators';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    formValues: state.formValues
+  }
+}
+
+const mapDispatchToProps = {
+  selectedChooseFormValues
+};
 
 class ChooseFeatures extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'notFamous',
-      gender: 'male',
-      ageRange: '10-19'
+      charType: 'notFamous',
+      charGender: 'male',
+      charAge: '10-19'
     }
   }
 
   static navigationOptions = {
     title: 'Choose features'
+  }
+
+  handleSubmit(values) {
+    // console.log("Current state is: " + JSON.stringify(values));
+    this.props.selectedChooseFormValues(values)
+    // this.props.setChanged(values);
+    // console.log(this.props)
+
+    // console.log("Gender:", values.charGender)
+    // console.log("Age:", values.charAge) 
+    // console.log("Type:", values.charType) 
   }
 
   render() {
@@ -30,8 +53,8 @@ class ChooseFeatures extends Component {
             <Text style={styles.formLabel}>Type</Text>
             <Picker
               style={styles.formItem}
-              selectedValue={this.state.type}
-              onValueChange={itemValue => this.setState({ type: itemValue })}
+              selectedValue={this.state.charType}
+              onValueChange={itemValue => this.setState({ charType: itemValue })}
             >
               <Picker.Item label='Not Famous' value='notFamous' />
               <Picker.Item label='Famous' value='famous' />
@@ -42,20 +65,21 @@ class ChooseFeatures extends Component {
             <Text style={styles.formLabel}>Gender</Text>
             <Picker
               style={styles.formItem}
-              selectedValue={this.state.gender}
-              onValueChange={itemValue => this.setState({ gender: itemValue })}
+              selectedValue={this.state.charGender}
+              onValueChange={itemValue => this.setState({ charGender: itemValue })}
             >
               <Picker.Item label='Male' value='male' />
               <Picker.Item label='Female' value='female' />
-              <Picker.Item label='Androgyne' value='androgyne' />
+              <Picker.Item label='Androgen' value='androgen' />
+              <Picker.Item label='Neutral' value='neutral' />
             </Picker>
           </View>
           <View style={styles.formRow}>
             <Text style={styles.formLabel}>Age Range</Text>
             <Picker
               style={styles.formItem}
-              selectedValue={this.state.ageRange}
-              onValueChange={itemValue => this.setState({ ageRange: itemValue })}
+              selectedValue={this.state.charAge}
+              onValueChange={itemValue => this.setState({ charAge: itemValue })}
             >
               <Picker.Item label='10 - 19' value='10-19' />
               <Picker.Item label='20 - 29' value='20-29' />
@@ -81,7 +105,8 @@ class ChooseFeatures extends Component {
                 backgroundColor: '#2904ff'
               }}
               onPress={() => {
-                if (this.state.type === 'createYourOwn') {
+                this.handleSubmit(this.state)
+                if (this.state.charType === 'createYourOwn') {
                   navigate('CreateChar')
                 } else {
                   navigate('ProfileReady')
@@ -124,4 +149,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChooseFeatures;
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseFeatures);

@@ -1,23 +1,47 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Card, Header, Icon, Button, Input } from 'react-native-elements';
+import { selectedCreateCharValues } from '../redux/ActionCreators';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    formValues: state.formValues,
+    createFormValues: state.createFormValues
+  }
+}
+
+const mapDispatchToProps = {
+  selectedCreateCharValues
+};
 
 class CreateChar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      age: '',
-      horoscope: '',
-      bio: '',
-      adjectives: '',
-      quirkyFact: '',
-      profession: ''
+      createName: '',
+      createAge: '',
+      createHoroscope: '',
+      createBio: '',
+      createAdjectives: '',
+      createQuirkyFact: '',
+      createProfession: ''
     }
   }
 
   static navigationOptions = {
     title: 'Create character'
+  }
+
+  handleSubmit(values) {
+    // console.log("Current state is: " + JSON.stringify(values));
+    this.props.selectedCreateCharValues(values);
+    // this.props.setChanged(values);
+    // console.log(this.props)
+
+    // console.log("Gender:", values.charGender)
+    // console.log("Age:", values.charAge) 
+    // console.log("Type:", values.charType) 
   }
 
   render() {
@@ -34,7 +58,7 @@ class CreateChar extends Component {
               placeholder='Name'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={name => this.setState({ name: name })}
+              onChangeText={createName => this.setState({ createName: createName })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -43,7 +67,7 @@ class CreateChar extends Component {
               placeholder='Age'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={age => this.setState({ age: age })}
+              onChangeText={createAge => this.setState({ createAge: createAge })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -52,7 +76,7 @@ class CreateChar extends Component {
               placeholder='Horoscope'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={horoscope => this.setState({ horoscope: horoscope })}
+              onChangeText={createHoroscope => this.setState({ createHoroscope: createHoroscope })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -61,7 +85,7 @@ class CreateChar extends Component {
               placeholder='Bio'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={bio => this.setState({ bio: bio })}
+              onChangeText={createBio => this.setState({ createBio: createBio })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -70,7 +94,7 @@ class CreateChar extends Component {
               placeholder='Adjectives'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={adjectives => this.setState({ adjectives: adjectives })}
+              onChangeText={createAdjectives => this.setState({ createAdjectives: createAdjectives })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -79,7 +103,7 @@ class CreateChar extends Component {
               placeholder='Quirky Fact'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={quirkyFact => this.setState({ quirkyFact: quirkyFact })}
+              onChangeText={createQuirkyFact => this.setState({ createQuirkyFact: createQuirkyFact })}
             ></Input>
           </View>
           <View style={styles.formRow}>
@@ -88,7 +112,7 @@ class CreateChar extends Component {
               placeholder='Profession'
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
-              onChangeText={profession => this.setState({ profession: profession })}
+              onChangeText={createProfession => this.setState({ createProfession: createProfession })}
             ></Input>
           </View>
           <View style={styles.buttonContainer}>
@@ -107,6 +131,7 @@ class CreateChar extends Component {
                 backgroundColor: '#2904ff'
               }}
               onPress={() => {
+                this.handleSubmit(this.state)
                 navigate('ProfileReady', {createCharData: this.state})
               }}
             />
@@ -146,4 +171,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CreateChar;
+export default connect(mapStateToProps, mapDispatchToProps)(CreateChar);

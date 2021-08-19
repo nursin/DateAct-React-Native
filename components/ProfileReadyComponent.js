@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { Card, Header, Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { generateProfile } from '../shared/functions';
+
+var randomFamousPerson = 1;
+
+const mapStateToProps = state => {
+  return {
+    formValues: state.formValues,
+    data: state.data
+  }
+}
 
 class ProfileReady extends Component {
   constructor(props) {
@@ -11,9 +22,23 @@ class ProfileReady extends Component {
     title: 'Profile ready'
   }
 
+  randomFamousPerson() {
+    if (this.props.formValues.formValues.charGender === 'male') {
+      randomFamousPerson = Math.floor(Math.random() * this.props.data.data.famousMales.length);
+    } else if (this.props.formValues.formValues.charGender === 'female') {
+      randomFamousPerson = Math.floor(Math.random() * this.props.data.data.famousFemales.length);
+    } else if (this.props.formValues.formValues.charGender === 'androgen' || this.props.formValues.formValues.charGender === 'neutral') {
+      randomFamousPerson = Math.floor(Math.random() * this.props.data.data.famousUnisex.length);
+    } else {
+      const GENDER_LIST = [this.props.data.data.famousMales, this.props.data.data.famousFemales, this.props.data.data.famousUnisex];
+      randomFamousPerson = Math.floor(Math.random() * GENDER_LIST.length);
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
-    
+    console.log('Profile:', this.props)
+    this.randomFamousPerson();
     return (
       <ScrollView>
         <Card
@@ -27,14 +52,14 @@ class ProfileReady extends Component {
           }}
           style={{ justifyContent: 'center', alignContent: 'center' }}
         >
-          <Text style={styles.profileLabelText}>Name:</Text>
-          <Text style={styles.profileLabelText}>Age:</Text>
-          <Text style={styles.profileLabelText}>Horoscope:</Text>
-          <Text style={styles.profileLabelText}>Type:</Text>
-          <Text style={styles.profileLabelText}>Bio:</Text>
-          <Text style={styles.profileLabelText}>Adjectives:</Text>
-          <Text style={styles.profileLabelText}>Quirky Fact:</Text>
-          <Text style={styles.profileLabelText}>Profession:</Text>
+          <Text style={styles.profileLabelText}>Name: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'name', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Age: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'age', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Horoscope: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'horoscope', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Type: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'type', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Bio: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'bio', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Adjectives: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'adjectives', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Quirky Fact: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'quirkyFact', randomFamousPerson)}</Text>
+          <Text style={styles.profileLabelText}>Profession: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'profession', randomFamousPerson)}</Text>
           <View style={{ margin: 20 }}>
             <Button
               title='Restart'
@@ -65,4 +90,4 @@ const styles = StyleSheet.create({
   }
  });
 
-export default ProfileReady;
+ export default connect(mapStateToProps)(ProfileReady);
