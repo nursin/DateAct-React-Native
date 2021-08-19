@@ -13,6 +13,7 @@ class ChooseFeatures extends Component {
       ageRange: '10-19'
     }
   }
+  
   static navigationOptions = {
     title: 'Choose features'
   }
@@ -83,7 +84,7 @@ class ChooseFeatures extends Component {
                 if (this.state.type === 'createYourOwn') {
                   navigate('CreateChar')
                 } else {
-                  navigate('ProfileReady')
+                  navigate('ProfileReady', {charData: this.state})
                 }
               }}
             />
