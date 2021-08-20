@@ -6,10 +6,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import SafeAreaView from 'react-native-safe-area-view';
-import AppLoading from 'expo-app-loading';
 import { useFonts, GoblinOne_400Regular } from '@expo-google-fonts/goblin-one';
 import { Header, Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Font from 'expo-font';
 
 // components
 import Home from './HomeComponent';
@@ -18,10 +18,6 @@ import Contact from './ContactComponent';
 import ProfileReady from './ProfileReadyComponent';
 import CreateChar from './CreateCharFormComponent';
 import ChooseFeatures from './ChooseFeaturesFormComponent';
-
-
-
-
 
 const HomeNavigator = createStackNavigator(
   {
@@ -136,7 +132,7 @@ const CustomDrawerContentComponent = props => (
           colors={['#dd37b9', '#8a30c5', '#2904ff']}
           style={styles.background}
         />
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 2 }}>
           <Icon
             name='transgender-alt'
             type='font-awesome'
@@ -145,7 +141,7 @@ const CustomDrawerContentComponent = props => (
             style={styles.drawerImage}
           />
         </View>
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 1 }}>
           <Text style={styles.drawerHeaderText}>Date Act</Text>
         </View>
       </View>
@@ -204,25 +200,43 @@ const MainNavigator = createDrawerNavigator(
 
 const AppNavigator = createAppContainer(MainNavigator);
 
-function Main() {
-  let [fontsLoaded, error] = useFonts({
-    GoblinOne_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
+class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fontsLoaded: false
+    }
+  }
+  async loadFonts() {
+    await Font.loadAsync({
+      'GoblinOne': {
+        uri: require('../assets/fonts/GoblinOne-Regular.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      }
+    });
+    this.setState({ fontsLoaded: true });
   }
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
-      }}>
-      <AppNavigator />
-    </View>
-  );
 
+  componentDidMount() {
+    this.loadFonts();
+  }
+
+  render() {
+    if (this.state.fontsLoaded) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
+          }}>
+          <AppNavigator />
+        </View>
+      );
+    } else {
+      return null;
+    }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -231,20 +245,19 @@ const styles = StyleSheet.create({
   },
   drawerHeader: {
     backgroundColor: '#2904ff',
-    height: 140,
+    height: 160,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
-    flexDirection: 'row'
+    flex: 1
   },
   drawerHeaderText: {
     color: '#fff',
     fontSize: 34,
-    fontWeight: 'bold',
-    textAlign: 'left'
+    textAlign: 'center',
+    fontFamily: 'GoblinOne'
   },
   drawerImage: {
-    margin: 10
+    margin: 20
   },
   stackIconRight: {
     marginRight: 10,
@@ -260,7 +273,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    top: -180,
+    top: -160,
     height: 350,
     width: 300,
     transform: [{ rotate: "-90deg" }]

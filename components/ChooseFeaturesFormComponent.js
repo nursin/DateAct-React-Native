@@ -5,6 +5,7 @@ import { Text, View, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Card, Header, Icon, Button } from 'react-native-elements';
 import { selectedChooseFormValues } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
+import * as Font from 'expo-font';
 
 const mapStateToProps = state => {
   return {
@@ -22,8 +23,23 @@ class ChooseFeatures extends Component {
     this.state = {
       charType: 'notFamous',
       charGender: 'male',
-      charAge: '10-19'
+      charAge: '10-19',
+      fontsLoaded: false
     }
+  }
+
+  async loadFonts() {
+    await Font.loadAsync({
+      'GoblinOne': {
+        uri: require('../assets/fonts/GoblinOne-Regular.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      }
+    });
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this.loadFonts();
   }
 
   static navigationOptions = {
@@ -44,10 +60,10 @@ class ChooseFeatures extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={{ margin: 20 }}>
+      <ScrollView style={{ backgroundColor: 'purple' }}>
         <View style={styles.container}>
-          <View style={styles.headerText}>
-            <Text style={{ fontSize: 24 }}>Choose features</Text>
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>Choose features</Text>
           </View>
           <View style={styles.formRow}>
             <Text style={styles.formLabel}>Type</Text>
@@ -122,12 +138,19 @@ class ChooseFeatures extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    margin: 10
   },
-  headerText: {
+  headerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 0.3
+  },
+  headerText: {
+    fontFamily: 'GoblinOne',
+    fontSize: 24,
+    marginTop: 20,
+    color: 'white',
   },
   buttonContainer: {
     flex: 1,
@@ -142,10 +165,12 @@ const styles = StyleSheet.create({
   },
   formLabel: {
     fontSize: 18,
-    flex: 2
+    flex: 2,
+    color: 'white',
   },
   formItem: {
-    flex: 2
+    flex: 2,
+    color: 'white',
   }
 });
 
