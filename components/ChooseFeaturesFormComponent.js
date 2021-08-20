@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 2,
     color: 'white',
+    fontWeight: 'bold'
   },
   formItem: {
     flex: 2,

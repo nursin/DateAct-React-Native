@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { Card, Header, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { generateProfile } from '../shared/functions';
+import * as Font from 'expo-font';
 
 var randomFamousPerson = 1;
 
@@ -16,8 +17,29 @@ const mapStateToProps = state => {
 class ProfileReady extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fontsLoaded: false
+    }
   }
   
+  async loadFonts() {
+    await Font.loadAsync({
+      'GoblinOne': {
+        uri: require('../assets/fonts/GoblinOne-Regular.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      }
+    });
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this.loadFonts();
+  }
+
+  static navigationOptions = {
+    title: 'Home'
+  }
+
   static navigationOptions = {
     title: 'Profile ready'
   }
@@ -40,7 +62,7 @@ class ProfileReady extends Component {
     console.log('Profile:', this.props)
     this.randomFamousPerson();
     return (
-      <ScrollView>
+      <ScrollView  style={{backgroundColor: 'purple'}}>
         <Card
           color='white'
           title='Profile ready'

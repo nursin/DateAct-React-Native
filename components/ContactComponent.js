@@ -10,7 +10,7 @@ class Contact extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: 'purple'}}>
         <Card
           title={'Contact us'}
           titleStyle={{

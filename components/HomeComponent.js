@@ -12,7 +12,7 @@ class Home extends Component {
       fontsLoaded: false
     }
   }
-  
+
   async loadFonts() {
     await Font.loadAsync({
       'GoblinOne': {
@@ -35,7 +35,7 @@ class Home extends Component {
     const { navigate } = this.props.navigation;
     if (this.state.fontsLoaded) {
       return (
-        <ScrollView>
+        <ScrollView style={{backgroundColor: 'purple'}}>
           <Card
             color='white'
             title='Instructions'

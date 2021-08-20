@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Card, Header, Icon, Button, Input } from 'react-native-elements';
 import { selectedCreateCharValues } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
+import * as Font from 'expo-font';
 
 const mapStateToProps = state => {
   return {
@@ -25,10 +26,24 @@ class CreateChar extends Component {
       createBio: '',
       createAdjectives: '',
       createQuirkyFact: '',
-      createProfession: ''
+      createProfession: '',
+      fontsLoaded: false
     }
   }
 
+  async loadFonts() {
+    await Font.loadAsync({
+      'GoblinOne': {
+        uri: require('../assets/fonts/GoblinOne-Regular.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      }
+    });
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this.loadFonts();
+  }
   static navigationOptions = {
     title: 'Create character'
   }
@@ -47,16 +62,16 @@ class CreateChar extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={{ margin: 20 }}>
+      <ScrollView style={{ backgroundColor: 'purple' }}>
         <View style={styles.container}>
           <View style={styles.headerText}>
-            <Text style={{ fontSize: 24 }}>Create Your Own</Text>
+            <Text style={{ fontSize: 24, fontFamily: 'GoblinOne', color: 'white' }}>Create your own</Text>
           </View>
           <View style={styles.formRow}>
             <Input
               style={styles.formItem}
               placeholder='Name'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createName => this.setState({ createName: createName })}
             ></Input>
@@ -65,7 +80,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Age'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createAge => this.setState({ createAge: createAge })}
             ></Input>
@@ -74,7 +89,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Horoscope'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createHoroscope => this.setState({ createHoroscope: createHoroscope })}
             ></Input>
@@ -83,7 +98,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Bio'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createBio => this.setState({ createBio: createBio })}
             ></Input>
@@ -92,7 +107,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Adjectives'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createAdjectives => this.setState({ createAdjectives: createAdjectives })}
             ></Input>
@@ -101,7 +116,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Quirky Fact'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createQuirkyFact => this.setState({ createQuirkyFact: createQuirkyFact })}
             ></Input>
@@ -110,7 +125,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Profession'
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+              leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createProfession => this.setState({ createProfession: createProfession })}
             ></Input>
@@ -149,7 +164,8 @@ const styles = StyleSheet.create({
   headerText: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.3
+    flex: 0.3,
+    marginTop: 20
   },
   buttonContainer: {
     flex: 1,
