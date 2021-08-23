@@ -63,16 +63,14 @@ class ProfileReady extends Component {
     this.randomFamousPerson();
     return (
       <ScrollView  style={{backgroundColor: 'purple'}}>
+
         <Card
           color='white'
           title='Profile ready'
-          titleStyle={{
-            color: 'white',
-          }}
+          titleStyle={styles.pageHeader}
           containerStyle={{
             backgroundColor: 'purple'
           }}
-          style={{ justifyContent: 'center', alignContent: 'center' }}
         >
           <Text style={styles.profileLabelText}>Name: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'name', randomFamousPerson)}</Text>
           <Text style={styles.profileLabelText}>Age: {generateProfile(this.props.formValues.formValues.charType, this.props.data.data, this.props.formValues, 'age', randomFamousPerson)}</Text>
@@ -101,14 +99,15 @@ class ProfileReady extends Component {
 
 const styles = StyleSheet.create({
   pageHeader: {
-    fontFamily: "GoblinOne-Regular",
     marginTop: 10, 
     textAlign: 'center', 
     color: 'white', 
-    fontSize: 15
+    fontSize: 25,
+    fontFamily: 'GoblinOne'
   },
   profileLabelText: {
-    color: 'white'
+    color: 'white',
+    marginBottom: 17
   }
  });
 

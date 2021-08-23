@@ -144,6 +144,9 @@ const CustomDrawerContentComponent = props => (
         <View style={{ flex: 1 }}>
           <Text style={styles.drawerHeaderText}>Date Act</Text>
         </View>
+        <View style={{ flex: 0.5 }}>
+          <Text style={styles.drawerHeaderSubtitle}>Spice up your date life</Text>
+        </View>
       </View>
       <DrawerItems {...props} />
     </SafeAreaView>
@@ -253,6 +256,12 @@ const styles = StyleSheet.create({
   drawerHeaderText: {
     color: '#fff',
     fontSize: 34,
+    textAlign: 'center',
+    fontFamily: 'GoblinOne'
+  },
+  drawerHeaderSubtitle: {
+    color: '#CEC8FF',
+    fontSize: 14,
     textAlign: 'center',
     fontFamily: 'GoblinOne'
   },

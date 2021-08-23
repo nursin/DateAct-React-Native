@@ -117,6 +117,7 @@ class ChooseFeatures extends Component {
                 />
               }
               title='Generate profile'
+              raised
               buttonStyle={{
                 backgroundColor: '#2904ff'
               }}

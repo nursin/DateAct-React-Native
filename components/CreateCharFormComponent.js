@@ -71,6 +71,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Name'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createName => this.setState({ createName: createName })}
@@ -80,6 +81,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Age'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createAge => this.setState({ createAge: createAge })}
@@ -89,6 +91,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Horoscope'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createHoroscope => this.setState({ createHoroscope: createHoroscope })}
@@ -98,6 +101,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Bio'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createBio => this.setState({ createBio: createBio })}
@@ -107,6 +111,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Adjectives'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createAdjectives => this.setState({ createAdjectives: createAdjectives })}
@@ -116,6 +121,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Quirky Fact'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createQuirkyFact => this.setState({ createQuirkyFact: createQuirkyFact })}
@@ -125,6 +131,7 @@ class CreateChar extends Component {
             <Input
               style={styles.formItem}
               placeholder='Profession'
+              placeholderTextColor='white'
               leftIcon={{ type: 'font-awesome', name: 'user-o', color: 'white' }}
               leftIconContainerStyle={{ paddingRight: 10 }}
               onChangeText={createProfession => this.setState({ createProfession: createProfession })}
@@ -142,6 +149,7 @@ class CreateChar extends Component {
                 />
               }
               title='Create'
+              raised
               buttonStyle={{
                 backgroundColor: '#2904ff'
               }}
